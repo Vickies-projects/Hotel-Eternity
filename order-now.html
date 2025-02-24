@@ -1,0 +1,195 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Now - Eternity Hotel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="favicon.jpg" rel="shortcut icon">
+    <script>
+        // Function to display menu items based on meal selection
+        function displayMenu() {
+            var mealType = document.getElementById("order-type").value;
+            var breakfastMenu = document.getElementById("breakfast-menu");
+            var lunchMenu = document.getElementById("lunch-menu");
+            var dinnerMenu = document.getElementById("dinner-menu");
+
+            // Hide all menus first
+            breakfastMenu.style.display = "none";
+            lunchMenu.style.display = "none";
+            dinnerMenu.style.display = "none";
+
+            // Display the selected meal menu
+            if (mealType === "breakfast") {
+                breakfastMenu.style.display = "block";
+            } else if (mealType === "lunch") {
+                lunchMenu.style.display = "block";
+            } else if (mealType === "dinner") {
+                dinnerMenu.style.display = "block";
+            }
+        }
+
+        // Function to display room number options based on location selection
+        function showLocationOptions() {
+            var location = document.querySelector('input[name="location"]:checked').value;
+            var roomSelection = document.getElementById("room-selection");
+            var deliveryOptions = document.getElementById("delivery-options");
+
+            if (location === "within") {
+                roomSelection.style.display = "block";
+                deliveryOptions.style.display = "none";
+            } else {
+                roomSelection.style.display = "none";
+                deliveryOptions.style.display = "block";
+            }
+        }
+
+        // Function to validate room number input
+        function validateRoomNumber() {
+            var roomNumber = document.getElementById("room-number").value;
+            var validRooms = ['101A', '102B', '103C', '104D', '105E', '106F', '107G', '108H', '109I', '110J', 
+                              '201A', '202B', '203C', '204D', '205E', '206F', '207G', '208H', '209I', '210J', 
+                              '301A', '302B', '303C', '304D', '305E', '306F', '307G', '308H', '309I', '310J',
+                              '401A', '402B', '403C', '404D', '405E', '406F', '407G', '408H', '409I', '410J', 
+                              '501A', '502B', '503C', '504D', '505E', '506F', '507G', '508H', '509I', '510J'];
+
+            if (!validRooms.includes(roomNumber)) {
+                alert("Invalid room number. Please choose a valid room.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Eternity Hotel - Order Now</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">More</a>
+                    <div class="dropdown-content">
+                        <a href="services.html">Our Services</a>
+                        <a href="food-menu.html">Food Menu</a>
+                        <a href="contact-us.html">Contact</a>
+                        <a href="location.html">Our Location</a>
+                        <a href="book-now.html">Book Now</a>
+                    </div>
+                </li>
+                <li><a href="order-now.html">Order now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Order Form Section -->
+    <section class="order-page">
+        <h2>Place Your Order</h2>
+        <p>Fill in the details below to place your order with us. Our team will confirm and deliver your food in no time!</p>
+
+        <!-- Order Form -->
+        <form action="submit-order.php" method="POST" onsubmit="return validateRoomNumber()">
+            <div class="form-group">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label>Select Your Meal:</label>
+                <select id="order-type" name="order-type" onchange="displayMenu()" required>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                </select>
+            </div>
+
+            <!-- Breakfast Menu -->
+            <div id="breakfast-menu" style="display:none;">
+                <h3>Breakfast Dishes</h3>
+                <input type="checkbox" name="menu-item[]" value="Pancakes with Syrup"> Pancakes with Syrup<br>
+                <input type="checkbox" name="menu-item[]" value="Eggs Benedict"> Eggs Benedict<br>
+                <input type="checkbox" name="menu-item[]" value="Avocado Toast"> Avocado Toast<br>
+                <input type="checkbox" name="menu-item[]" value="Classic Omelette"> Classic Omelette<br>
+                <input type="checkbox" name="menu-item[]" value="Fresh Fruit Platter"> Fresh Fruit Platter<br>
+                <input type="checkbox" name="menu-item[]" value="Artisanal Yogurt"> Artisanal Yogurt<br>
+                <input type="checkbox" name="menu-item[]" value="Fruit Smoothie"> Fruit Smoothie<br>
+                <input type="checkbox" name="menu-item[]" value="Fresh Coffee">Freshccoffee<br>
+                <input type="checkbox" name="menu-item[]" value="Fresh Orange Juice"> Fresh Orange Juice<br>
+            </div>
+
+            <!-- Lunch Menu -->
+            <div id="lunch-menu" style="display:none;">
+                <h3>Lunch Dishes</h3>
+                <input type="checkbox" name="menu-item[]" value="Cheeseburger Deluxe"> Cheeseburger Deluxe<br>
+                <input type="checkbox" name="menu-item[]" value="Caesar Salad"> Caesar Salad<br>
+                <input type="checkbox" name="menu-item[]" value="Grilled Sandwich"> Grilled Sandwich<br>
+                <input type="checkbox" name="menu-item[]" value="Chicken Wrap"> Chicken Wrap<br>
+                <input type="checkbox" name="menu-item[]" value="Seafood Dishes"> Seafood Dishes<br>
+                <input type="checkbox" name="menu-item[]" value="Wood-Fired Pizza"> Wood-Fired Pizza<br>
+                <input type="checkbox" name="menu-item[]" value="Iced Tea"> Iced Tea<br>
+                <input type="checkbox" name="menu-item[]" value="Lemonade"> Lemonade<br>
+                <input type="checkbox" name="menu-item[]" value="Vegetarian Pasta"> Vegetarian Pasta<br>
+                <input type="checkbox" name="menu-item[]" value="Pancakes with Syrup"> Pancakes with Syrup<br>
+            </div>
+
+            <!-- Dinner Menu -->
+            <div id="dinner-menu" style="display:none;">
+                <h3>Dinner Dishes</h3>
+                <input type="checkbox" name="menu-item[]" value="Grilled Steak"> Grilled Steak<br>
+                <input type="checkbox" name="menu-item[]" value="Chicken Alfredo"> Chicken Alfredo<br>
+                <input type="checkbox" name="menu-item[]" value="Fish and Chips"> Fish and Chips<br>
+                <input type="checkbox" name="menu-item[]" value="Lamb Chops"> Lamb Chops<br>
+                <input type="checkbox" name="menu-item[]" value="Filet Mignon"> Filet Mignon<br>
+                <input type="checkbox" name="menu-item[]" value="Sorbet"> Sorbet<br>
+                <input type="checkbox" name="menu-item[]" value="Red Wine"> Red Wine<br>
+                <input type="checkbox" name="menu-item[]" value="Grilled Salmon"> Grilled Salmon<br>
+                <input type="checkbox" name="menu-item[]" value="Sparkling Water"> Sparkling Water<br>
+                <input type="checkbox" name="menu-item[]" value="Pasta Primavera"> Pasta Primavera<br>
+                <input type="checkbox" name="menu-item[]" value="Mushroom Risotto"> Mushroom Risotto<br>
+            </div>
+
+            <div class="form-group">
+                <label>Are you within the hotel or outside?</label>
+                <input type="radio" name="location" value="within" onclick="showLocationOptions()" required> Within the Hotel
+                <input type="radio" name="location" value="outside" onclick="showLocationOptions()"> Outside the Hotel
+            </div>
+
+            <!-- Room Selection for Customers Within Hotel -->
+            <div id="room-selection" style="display:none;">
+                <label for="room-number">Select Your Room Number:</label>
+                <input type="text" id="room-number" name="room-number" placeholder="e.g., 101A" required>
+            </div>
+
+            <!-- Delivery or Pickup for Customers Outside Hotel -->
+            <div id="delivery-options" style="display:none;">
+                <label for="delivery-method">Select Delivery Method:</label>
+                <select id="delivery-method" name="delivery-method" required>
+                    <option value="pickup">Personal Pick-Up</option>
+                    <option value="delivery">Delivery</option>
+                </select>
+            </div>
+
+            <button type="submit" class="cta-btn">Submit Order</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Contact us: <a href="eternityhotel@gmail.com">Email</a> | <a href="tel:+254769864327"><i class='bx bxs-phone' style='color:#14db58'  ></i></a> | <a href="https://wa.me/+254769864327" ><i class='bx bxl-whatsapp' style='color:#13dd30'  ></i></a> | <a href="https://www.facebook.com/groups/1375012700328226/permalink/1375012760328220/"><i class='bx bxl-facebook-circle' style='color:#1e09f7'  ></i></a></p>
+    </footer>
+
+</body>
+</html>

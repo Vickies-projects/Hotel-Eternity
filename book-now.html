@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now - Eternity Hotel</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="favicon.jpg" rel="shortcut icon">
+</head>
+<body>
+
+    <header>
+        <h1>Eternity Hotel - Book Now</h1>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">More</a>
+					<div class="dropdown-content">
+						<a href="services.html">Our Services</a>
+						<a href="food-menu.html">Food Menu</a>
+						<a href="contact-us.html">Contact</a>
+						<a href="location.html">Our Location</a>
+						<a href="book-now.html">Book Now</a>
+					</div>
+				</li>
+                <li><a href="order-now.html">Order now</a></li>
+			</ul>
+		</nav>
+	</header>
+
+    <section id="booking">
+        <div id="booking-form">
+            <h3>Book Your Service</h3>
+
+            <label for="service-type">Select Service:</label>
+            <select id="service-type" name="service-type" onchange="updateFields()">
+                <option value="accommodation">Room for Accommodation</option>
+                <option value="conference-hall">Conference Hall</option>
+                <option value="event-field">Event Field</option>
+                <option value="camping">Camping Field</option>
+            </select><br><br>
+
+            <!-- Fields for accommodation booking -->
+            <div id="accommodation-fields">
+                <h3>Room for Accommodation</h3>
+                <label for="room-type">Room Type:</label>
+                <select id="room-type" name="room-type" onchange="updatePrice()">
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                    <option value="suite">Suite</option>
+                </select><br><br>
+                <label for="check-in">Check-in Date:</label>
+                <input type="date" id="check-in" name="check-in" placeholder="YYYY-MM-DD"><br><br> 
+                <label for="check-out">Check-out Date:</label>
+                <input type="date" id="check-out" name="check-out" placeholder="YYYY-MM-DD"><br><br> 
+                <label for="guest-count">Number of Guests:</label>
+                <input type="number" id="guest-count" name="guest-count" required placeholder="e.g., 2 guests"><br><br>
+                <label for="special-requests">Special Requests (optional):</label><br>
+                <textarea id="special-requests" name="special-requests" rows="4" cols="50" placeholder="e.g., Vegan food, early check-in"></textarea><br><br>
+            </div>
+
+            <!-- Fields for Conference Hall -->
+            <div id="conference-hall-fields" style="display:none;">
+                <h3>Conference Hall</h3>
+                <label for="hall-type">Hall Type:</label>
+                <select id="hall-type" name="hall-type">
+                    <option value="small">Small Hall</option>
+                    <option value="medium">Medium Hall</option>
+                    <option value="large">Large Hall</option>
+                </select><br><br>
+                <label for="event-date">Event Date:</label>
+                <input type="date" id="event-date" name="event-date" placeholder="YYYY-MM-DD"><br><br>
+                <label for="event-time">Event Time:</label>
+                <input type="time" id="event-time" name="event-time" placeholder="HH:MM"><br><br>
+                <label for="attendees">Number of Attendees:</label>
+                <input type="number" id="attendees" name="attendees" required placeholder="e.g., 50 attendees"><br><br>
+            </div>
+
+            <!-- Fields for Event Field -->
+            <div id="event-field-fields" style="display:none;">
+                <h3>Event Field</h3>
+                <label for="event-type">Event Type:</label>
+                <select id="event-type" name="event-type">
+                    <option value="outdoor">Outdoor</option>
+                    <option value="indoor">Indoor</option>
+                </select><br><br>
+                <label for="event-date-field">Event Date:</label>
+                <input type="date" id="event-date-field" name="event-date-field" placeholder="YYYY-MM-DD"><br><br>
+            </div>
+
+            <!-- Fields for Camping Field -->
+            <div id="camping-field-fields" style="display:none;">
+                <h3>Camping Field</h3>
+                <label for="camping-duration">Camping Duration (Days):</label>
+                <input type="number" id="camping-duration" name="camping-duration" placeholder="e.g., 2 days"><br><br>
+                <label for="camping-date">Camping Date:</label>
+                <input type="date" id="camping-date" name="camping-date" placeholder="YYYY-MM-DD"><br><br>
+                <label for="camping-size">Group Size:</label>
+                <input type="number" id="camping-size" name="camping-size" required placeholder="e.g., 10 people"><br><br>
+            </div>
+
+            <div id="calendar"></div><br><br>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>Contact us: <a href="eternityhotel@gmail.com">Email</a> | <a href="tel:+254769864327"><i class='bx bxs-phone' style='color:#14db58'  ></i></a> | <a href="https://wa.me/+254769864327" ><i class='bx bxl-whatsapp' style='color:#13dd30'  ></i></a> | <a href="https://www.facebook.com/groups/1375012700328226/permalink/1375012760328220/"><i class='bx bxl-facebook-circle' style='color:#1e09f7'  ></i></a></p>
+    </footer>
+
+    <script>
+        // Update Fields Based on Selected Service
+        function updateFields() {
+            var serviceType = document.getElementById("service-type").value;
+
+            // Hide all service fields
+            document.getElementById("accommodation-fields").style.display = "none";
+            document.getElementById("conference-hall-fields").style.display = "none";
+            document.getElementById("event-field-fields").style.display = "none";
+            document.getElementById("camping-field-fields").style.display = "none";
+
+            // Show relevant fields based on service
+            if (serviceType === "accommodation") {
+                document.getElementById("accommodation-fields").style.display = "block";
+            } else if (serviceType === "conference-hall") {
+                document.getElementById("conference-hall-fields").style.display = "block";
+            } else if (serviceType === "event-field") {
+                document.getElementById("event-field-fields").style.display = "block";
+            } else if (serviceType === "camping") {
+                document.getElementById("camping-field-fields").style.display = "block";
+            }
+        }
+        
+        // Initialize the Calendar
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                selectable: true,
+                selectHelper: true,
+                events: []
+            });
+        });
+    </script>
+
+</body>
+</html>
