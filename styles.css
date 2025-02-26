@@ -244,6 +244,8 @@ select, input, textarea {
 .submit-btn {
     display: inline-block;
     padding: 10px 20px;
+    margin-top: 15px;
+    margin-bottom: 35px;
     background-color: #4CAF50;
     color: white;
     font-size: 16px;
@@ -423,6 +425,7 @@ select, input, textarea {
     text-decoration: none;
     border-radius: 30px;
     margin-top: 15px;
+    margin-bottom: 35px;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease;
 }
 
